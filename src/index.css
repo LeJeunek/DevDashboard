@@ -2,10 +2,25 @@ body {
   background-color: #121212;
   color: #e0e0e0;
   min-height: 100vh;
-  font-family: 'Inter', sans-serif;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+  margin: 0;
 }
 
+/* index.css or Sidebar.css */
 .main-content {
+  display: flex;
+  flex-direction: column;
   background-color: #181818;
   min-height: 100vh;
+  margin-right: -20px !important; /* matches sidebar width */
+  padding: 2rem;
+  color: #e0e0e0;
+}
+.page-header {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  margin-left: 16rem;
 }

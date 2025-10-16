@@ -1,14 +1,18 @@
-import { Container } from 'react-bootstrap';
-import Sidebar from './components/Sidebar.jsx';
-import './index.css';
+import { Container } from "react-bootstrap";
+import Sidebar from "./components/Sidebar.jsx";
+import DashboardGrid from "./components/DashboardGrid.jsx";
+import "./index.css";
 
 function App() {
   return (
-    <div className="d-flex">
+    <div>
       <Sidebar />
-      <Container fluid className="main-content p-4" style={{ marginLeft: "220px" }}>
-        <h1>Welcome to Dev Dashboard</h1>
-        <p>Your one-stop solution for development resources and tools.</p>
+      <Container fluid className="main-content">
+        <div className="page-header mb-4">
+          <h1>Dev Dashboard</h1>
+        </div>
+
+        <DashboardGrid />
       </Container>
     </div>
   );
