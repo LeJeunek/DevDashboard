@@ -4,24 +4,113 @@
 }
 
 .widget {
-  background-color: #222;
-  border: 1px solid #333;
-  border-radius: 10px;
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 8px;
+  height: auto;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  color: #fff;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
 
+/* Prevent red highlight on click */
+.widget,
+.widget * {
+  user-select: none;
+}
+
+.expand-btn {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.expand-btn:hover {
+  color: #0dcaf0;
+}
+
+.widget:active,
+.widget button:active {
+  outline: none;
+  background: inherit !important;
+  color: inherit !important;
+}
+
+/* === Improved header layout === */
 .widget-header {
-  background-color: #2c2c2c;
-  padding: 0.5rem 1rem;
-  font-weight: 600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2b2b2b;
+  padding: 0.6rem 1rem;
+  font-weight: bold;
+  user-select: none;
+  border-bottom: 1px solid #333;
+}
+
+/* Left section: drag handle + title grouped */
+.widget-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.drag-handle {
   cursor: grab;
+  color: #888;
+  font-size: 1.2rem;
+  padding-right: 0.5rem;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.widget-title {
+  cursor: default;
+  color: #fff;
+  transition: color 0.2s;
+  font-weight: 600;
+}
+
+.widget-title:hover {
+  color: #0dcaf0; /* subtle hover accent */
 }
 
 .widget-body {
-  padding: 1rem;
   flex: 1;
+  overflow-y: auto;
+  height: 100%;
+  padding: 1rem;
+}
+
+.layout.blurred {
+  filter: blur(3px);
+  pointer-events: none;
+}
+
+.expanded-overlay {
+  position: fixed;
+  top: 0;
+  left: 250px; /* width of sidebar */
+  width: calc(100% - 250px);
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+
+.expanded-content {
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  padding: 2rem;
+  width: 80%;
+  height: 80%;
+  overflow-y: auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
 }
