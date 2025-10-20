@@ -3,6 +3,7 @@ import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import "./DashboardGrid.css";
+import Tips from "../pages/Tips.jsx";
 import SnippetManager from "./widgets/SnippetManager.jsx";
 
 export default function DashboardGrid() {
@@ -36,10 +37,10 @@ export default function DashboardGrid() {
         layout={layout}
         cols={12}
         rowHeight={100}
-        width={gridWidth}
         isDraggable={!expandedWidget} // disable drag when expanded
         isResizable={!expandedWidget}
         draggableHandle=".drag-handle"
+        width={gridWidth}
       >
         <div key="a" className="widget">
           <div className="widget-header">
@@ -108,7 +109,7 @@ export default function DashboardGrid() {
           </div>
 
           <div className="widget-body">
-            <div>Cheat Sheet Content</div>
+            <Tips compact />
           </div>
         </div>
         <div key="d" className="widget">

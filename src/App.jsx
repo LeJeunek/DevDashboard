@@ -1,20 +1,22 @@
-import { Container } from "react-bootstrap";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar.jsx";
 import DashboardGrid from "./components/DashboardGrid.jsx";
+import Code from "./pages/Code.jsx";
+import Tips from "./pages/Tips.jsx";
 import "./index.css";
 
 function App() {
   return (
-    <div>
+    <Router>
       <Sidebar />
-      <Container fluid className="main-content">
-        <div className="page-header mb-4">
-          <h1>Dev Dashboard</h1>
-        </div>
-
-        <DashboardGrid />
-      </Container>
-    </div>
+      <div className="main-content">
+        <Routes>
+          <Route path="/" element={<DashboardGrid />} />
+          <Route path="/code" element={<Code />} />
+          <Route path="/tips" element={<Tips />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

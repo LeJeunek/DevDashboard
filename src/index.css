@@ -12,15 +12,36 @@ body {
 .main-content {
   display: flex;
   flex-direction: column;
-  background-color: #181818;
-  min-height: 100vh;
-  margin-right: -20px !important; /* matches sidebar width */
-  padding: 2rem;
-  color: #e0e0e0;
+  justify-content: center;
+  flex: 1;
+  gap: 1rem;
+  padding: 1rem;
+  width: 100%;
+  background: #181818;
+  color: #fafafa;
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: "Fira Code", monospace;
 }
+
 .page-header {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  margin-left: 16rem;
+  margin-left: 0; /* no extra offset */
+}
+
+/* Code page styles */
+.code-page {
+  flex: 1; /* take all vertical space left */
+  overflow: hidden; /* prevent body scroll */
+  padding: 4rem;
+  display: flex;
+  width: calc(100% - 250px); /* offset for sidebar */
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  left: 250px; /* offset for sidebar */
+  height: 100vh;
+  background-color: #121212;
 }

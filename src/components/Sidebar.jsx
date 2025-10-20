@@ -1,5 +1,6 @@
 import { Nav } from "react-bootstrap";
 import { FaHome, FaCode, FaPalette, FaLightbulb } from "react-icons/fa";
+import { NavLink } from "react-router-dom"; // <-- use NavLink for active styling
 import "./Sidebar.css";
 
 export default function Sidebar() {
@@ -8,25 +9,32 @@ export default function Sidebar() {
       <h4 className="mb-4 text-white">Dev Dashboard</h4>
       <Nav className="flex-column w-100">
         <Nav.Link
-          href="/"
+          as={NavLink}
+          to="/"
           className="d-flex align-items-center mb-3 text-white"
         >
           <FaHome className="me-2" /> Home
         </Nav.Link>
+
         <Nav.Link
-          href="/code"
+          as={NavLink}
+          to="/code"
           className="d-flex align-items-center mb-3 text-white"
         >
           <FaCode className="me-2" /> Code
         </Nav.Link>
+
         <Nav.Link
-          href="/palette"
+          as={NavLink}
+          to="/palette"
           className="d-flex align-items-center mb-3 text-white"
         >
           <FaPalette className="me-2" /> Palette
         </Nav.Link>
+
         <Nav.Link
-          href="/tips"
+          as={NavLink}
+          to="/tips"
           className="d-flex align-items-center mb-3 text-white"
         >
           <FaLightbulb className="me-2" /> Tips

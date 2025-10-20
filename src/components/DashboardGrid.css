@@ -1,6 +1,7 @@
 .dashboard-grid {
-  margin-top: 1rem;
-  margin-left: 16rem;
+  margin-left: 250px; /* offset for sidebar */
+  height: calc(100vh - 2rem);
+  display: flex;
 }
 
 .widget {
@@ -91,7 +92,6 @@
   filter: blur(3px);
   pointer-events: none;
 }
-
 .expanded-overlay {
   position: fixed;
   top: 0;

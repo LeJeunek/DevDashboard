@@ -7,15 +7,18 @@ export default function SnippetManager() {
   const [title, setTitle] = useState("");
   const [code, setCode] = useState("");
   const [selectedSnippet, setSelectedSnippet] = useState(null);
+  const [category, setCategory] = useState("general");
+  const [expandedIds, setExpandedIds] = useState([]); // ✅ track expanded code blocks
 
-  // ✅ Load snippets from server (if available), fallback to localStorage
+  const categories = ["general", "html / css", "javascript", "animations"];
+
+  // Load from backend or localStorage
   useEffect(() => {
     const loadSnippets = async () => {
       try {
         const res = await axios.get("http://localhost:8080/api/snippets");
         setSnippets(res.data);
-      } catch (err) {
-        console.warn("Server not reachable, loading from localStorage...");
+      } catch {
         const saved = JSON.parse(localStorage.getItem("snippets")) || [];
         setSnippets(saved);
       }
@@ -23,15 +26,14 @@ export default function SnippetManager() {
     loadSnippets();
   }, []);
 
-  // ✅ Sync with localStorage for dev-persistence
+  // Save to localStorage
   useEffect(() => {
     localStorage.setItem("snippets", JSON.stringify(snippets));
   }, [snippets]);
 
   const handleAdd = async () => {
     if (!title || !code) return alert("Title and code are required");
-
-    const newSnippet = { id: Date.now(), title, code };
+    const newSnippet = { id: Date.now(), title, code, category };
 
     try {
       const res = await axios.post(
@@ -40,7 +42,6 @@ export default function SnippetManager() {
       );
       setSnippets((prev) => [...prev, res.data]);
     } catch {
-      // fallback for local mode
       setSnippets((prev) => [...prev, newSnippet]);
     }
 
@@ -57,9 +58,7 @@ export default function SnippetManager() {
         `http://localhost:8080/api/snippets/${selectedSnippet.id}`,
         updated
       );
-    } catch {
-      // ignore if no backend yet
-    }
+    } catch {}
 
     setSnippets((prev) =>
       prev.map((s) => (s.id === selectedSnippet.id ? updated : s))
@@ -72,10 +71,7 @@ export default function SnippetManager() {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8080/api/snippets/${id}`);
-    } catch {
-      // ignore if local only
-    }
-
+    } catch {}
     setSnippets((prev) => prev.filter((s) => s.id !== id));
   };
 
@@ -85,10 +81,23 @@ export default function SnippetManager() {
     setCode(snippet.code);
   };
 
+  // ✅ Collapse toggle
+  const toggleExpand = (id) => {
+    setExpandedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  };
+
+  // ✅ Copy to clipboard
+  const copyCode = (code) => {
+    navigator.clipboard.writeText(code);
+  };
+
   return (
     <div className="snippet-manager">
       <h3>Snippet Manager</h3>
 
+      {/* Form */}
       <div className="snippet-form">
         <input
           type="text"
@@ -96,6 +105,13 @@ export default function SnippetManager() {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        <select value={category} onChange={(e) => setCategory(e.target.value)}>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>
+              {cat}
+            </option>
+          ))}
+        </select>
         <textarea
           placeholder="Your code"
           value={code}
@@ -109,17 +125,57 @@ export default function SnippetManager() {
         )}
       </div>
 
-      <ul className="snippet-list">
-        {snippets.map((s) => (
-          <li key={s.id}>
-            <strong>{s.title}</strong>
-            <div className="actions">
-              <button onClick={() => handleEdit(s)}>Edit</button>
-              <button onClick={() => handleDelete(s.id)}>Delete</button>
-            </div>
-            <pre>{s.code}</pre>
-          </li>
+      {/* Category Filter */}
+      <div className="category-filter">
+        {categories.map((cat) => (
+          <button
+            key={cat}
+            className={cat === category ? "active" : ""}
+            onClick={() => setCategory(cat)}
+          >
+            {cat}
+          </button>
         ))}
+      </div>
+
+      {/* Snippet List */}
+      <ul className="snippet-list">
+        {snippets
+          .filter((s) => s.category === category)
+          .map((s) => {
+            const isExpanded = expandedIds.includes(s.id);
+            return (
+              <li key={s.id} className="snippet-item">
+                <div className="snippet-header">
+                  <strong>{s.title}</strong>
+                  <div className="actions">
+                    <button onClick={() => toggleExpand(s.id)}>
+                      {isExpanded ? "Collapse" : "Expand"}
+                    </button>
+                    <button onClick={() => copyCode(s.code)}>Copy</button>
+
+                    <button onClick={() => handleEdit(s)}>Edit</button>
+                    <button onClick={() => handleDelete(s.id)}>Delete</button>
+                  </div>
+                </div>
+
+                {/* Code Block (collapsible) */}
+                <div
+                  className={`code-block ${
+                    isExpanded ? "expanded" : "collapsed"
+                  }`}
+                >
+                  <pre>{s.code}</pre>
+                </div>
+
+                {/* Live HTML Preview */}
+                <div
+                  className="snippet-preview"
+                  dangerouslySetInnerHTML={{ __html: s.code }}
+                ></div>
+              </li>
+            );
+          })}
       </ul>
     </div>
   );

@@ -1,16 +1,22 @@
+/* ─── Container ───────────────────────────── */
 .snippet-manager {
   display: flex;
   flex-direction: column;
+  flex: 1;
   gap: 1rem;
   padding: 1rem;
   background: #181818;
   color: #fafafa;
   border-radius: 12px;
-  height: 100%;
+  height: calc(100vh - 2rem);
+  overflow-y: auto;
+  font-family: "Fira Code", monospace;
 }
 
+/* ─── Form ────────────────────────────────── */
 .snippet-form input,
-.snippet-form textarea {
+.snippet-form textarea,
+.snippet-form select {
   width: 100%;
   padding: 0.5rem;
   border-radius: 8px;
@@ -18,55 +24,190 @@
   background: #222;
   color: #fff;
   font-family: monospace;
+  margin-bottom: 0.5rem;
 }
 
 .snippet-form button {
-  margin-top: 0.5rem;
   padding: 0.5rem 1rem;
   background: #007bff;
   border: none;
   color: white;
   border-radius: 8px;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+.snippet-form button:hover {
+  background: #0dcaf0;
 }
 
+/* ─── Category Filter ─────────────────────── */
+.category-filter {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.category-filter button {
+  background: #2a2a2a;
+  color: #fafafa;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.category-filter button.active {
+  background: #0dcaf0;
+  color: #000;
+}
+.category-filter button:hover {
+  background: #0dcaf0;
+  color: #000;
+}
+
+/* ─── Snippet List ────────────────────────── */
 .snippet-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.snippet-list li {
+.snippet-item {
+  margin-bottom: 1rem;
+  background: #151515;
   border: 1px solid #333;
   border-radius: 8px;
   padding: 0.5rem;
-  background: #1f1f1f;
+}
+
+/* ─── Header / Actions ────────────────────── */
+.snippet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 0.5rem;
 }
 
-.snippet-list pre {
-  background: #111;
-  padding: 0.5rem;
-  border-radius: 6px;
-  overflow-x: auto;
-  white-space: pre-wrap;
-}
-.actions {
+.snippet-header .actions {
   display: flex;
-  gap: 0.5rem;
-  margin: 0.5rem 0;
+  gap: 0.25rem;
 }
 
-.actions button {
-  flex: 1;
+.snippet-header .actions button {
+  background: #2a2a2a;
+  color: #ddd;
   border: none;
-  padding: 0.4rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
   cursor: pointer;
-  border-radius: 4px;
-  background: #444;
-  color: #fafafa;
   transition: background 0.2s ease;
 }
+.snippet-header .actions button:hover {
+  background: #0dcaf0;
+  color: #000;
+}
 
-.actions button:hover {
-  background: #666;
+.snippet-buttons button {
+  background: #2a2a2a;
+  color: #fafafa;
+  border: none;
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* ─── Code Block (only collapses <pre>) ─────────────── */
+.code-block {
+  background: #0b0b0b;
+  color: #cfe8ff;
+  font-family: "Fira Code", monospace;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  transition: max-height 0.25s ease;
+  position: relative;
+}
+
+/* collapsed view */
+.code-block.collapsed {
+  max-height: 6em; /* show just a few lines */
+}
+.code-block.collapsed::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2em;
+  background: linear-gradient(180deg, rgba(11, 11, 11, 0), rgba(11, 11, 11, 1));
+}
+
+/* expanded view */
+.code-block.expanded {
+  max-height: 800px;
+}
+
+/* code text inside */
+.code-block pre {
+  margin: 0;
+  padding: 0.75rem;
+  white-space: pre-wrap;
+}
+
+/* Collapsed state */
+.code-block.collapsed {
+  max-height: 5em;
+  overflow: hidden;
+}
+.code-block.collapsed::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2em;
+  background: linear-gradient(180deg, rgba(11, 11, 11, 0), rgba(11, 11, 11, 1));
+}
+
+/* Expanded state */
+.code-block.expanded {
+  max-height: 600px;
+}
+
+/* ─── Preview Block ───────────────────────── */
+.snippet-preview {
+  margin-top: 0.6rem;
+  padding: 0.6rem;
+  border-radius: 6px;
+  border: 1px solid #2a2a2a;
+  background: #141414;
+  transition: max-height 0.25s ease;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Collapsed preview */
+.snippet-preview.collapsed {
+  max-height: 6.5em;
+}
+.snippet-preview.collapsed::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2em;
+  background: linear-gradient(180deg, rgba(20, 20, 20, 0), rgba(20, 20, 20, 1));
+}
+
+/* ─── Responsive ──────────────────────────── */
+@media (max-width: 768px) {
+  .code-block.collapsed {
+    max-height: 6em;
+  }
+  .snippet-preview.collapsed {
+    max-height: 8em;
+  }
 }

@@ -1,12 +1,14 @@
 [
   {
-    "id": 1760856007537,
-    "title": "Example 1 ",
-    "code": "<h1>Hello World</h1>"
+    "id": 1760902803008,
+    "title": "General Test",
+    "code": "<button class=\"btn btn-success\">I am in general</button>",
+    "category": "general"
   },
   {
-    "id": 1760856128886,
-    "title": "Next step",
-    "code": "Learn how to show a preview so i can store like image text content blocks "
+    "id": 1760903110364,
+    "title": "Inline styling",
+    "code": "<style>\n  .card-demo {\n    border: 1px solid #444;\n    border-radius: 8px;\n    padding: 1rem;\n    background: #ffffff;\n    color: #000000;\n    transition: transform 0.2s ease;\n    width: 100px;\n    height: 80px;\n    cursor: pointer;\n  }\n  .card-demo:hover {\n    transform: scale(1.05);\n  }\n</style>\n\n<div class=\"card-demo\">\n  <h4>Hello World</h4>\n  <p>This card is styled via internal CSS!</p>\n</div>\n",
+    "category": "html / css"
   }
 ]
