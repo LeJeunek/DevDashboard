@@ -1,15 +1,15 @@
 .tips-page {
+  flex: 1; /* take all vertical space left */
+  overflow: hidden; /* prevent body scroll */
+  padding: 4rem;
   display: flex;
+  width: calc(100% - 250px); /* offset for sidebar */
   flex-direction: column;
-  flex: 1;
-  gap: 1rem;
-  padding: 1rem;
-  background: #181818;
-  color: #fafafa;
-  border-radius: 12px;
-  height: calc(100vh - 2rem);
-
-  font-family: "Fira Code", monospace;
+  position: absolute;
+  top: 0;
+  left: 250px; /* offset for sidebar */
+  height: 100vh;
+  background-color: #121212;
 }
 
 .tips-subtitle {
