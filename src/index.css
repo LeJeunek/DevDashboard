@@ -4,7 +4,7 @@ body {
   min-height: 100vh;
   width: 100%;
   font-family: "Inter", sans-serif;
-  overflow: hidden;
+  overflow-y: auto;
   margin: 0;
 }
 
@@ -35,7 +35,7 @@ body {
 .code-page {
   flex: 1; /* take all vertical space left */
   overflow: hidden; /* prevent body scroll */
-  padding: 4rem;
+  padding: 2rem;
   display: flex;
   width: calc(100% - 250px); /* offset for sidebar */
   flex-direction: column;
@@ -45,3 +45,20 @@ body {
   height: 100vh;
   background-color: #121212;
 }
+.tips-page-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem;
+  max-width: 80%;
+  width: 100%;  
+  margin-left: 250px; /* remove sidebar offset inside widget */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  color: #fafafa;
+  height: 100%; /* make it fill widget-body */
+}
+
+

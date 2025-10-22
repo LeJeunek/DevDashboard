@@ -149,13 +149,14 @@ export default function SnippetManager() {
                 <div className="snippet-header">
                   <strong>{s.title}</strong>
                   <div className="actions">
-                    <button onClick={() => toggleExpand(s.id)}>
+                    <div className="snippet-buttons">   <button onClick={() => toggleExpand(s.id)}>
                       {isExpanded ? "Collapse" : "Expand"}
                     </button>
                     <button onClick={() => copyCode(s.code)}>Copy</button>
 
                     <button onClick={() => handleEdit(s)}>Edit</button>
-                    <button onClick={() => handleDelete(s.id)}>Delete</button>
+                    <button onClick={() => handleDelete(s.id)}>Delete</button></div>
+                 
                   </div>
                 </div>
 

@@ -1,0 +1,83 @@
+.tips-page-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden; /* ✅ prevents side scroll */
+  padding: 2rem clamp(1rem, 4vw, 4rem);
+  margin-left: 250px;
+  display: flex;
+  flex-direction: column;
+  background-color: #121212;
+  color: #fafafa;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+/* Compact widget version */
+.tips-page.compact {
+  position: static;
+  width: 100%;       /* ✅ no fixed px width */
+  height: auto;
+  padding: 1.5rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: transparent;
+}
+
+.tips-subtitle {
+  color: #aaa;
+  margin-bottom: 2rem;
+}
+
+.tips-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* ✅ reduced min */
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+.tip-card {
+  background: #181818;
+  border: 1px solid #2c2c2c;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+}
+
+/* ... (rest of your styling unchanged) ... */
+
+pre {
+  background: #1e1e1e;
+  color: #0dcaf0;
+  padding: 1rem;
+  border-radius: 8px;
+  overflow-x: auto;
+  white-space: pre-wrap;  /* ✅ wraps long lines */
+  word-break: break-word; /* ✅ no overflow from long words */
+}
+
+p {
+  color: #ccc;
+  margin-top: 1rem;
+}
+
+/* ✅ Responsive cleanup */
+@media (max-width: 600px) {
+  .tips-page-content {
+    padding: 1rem;
+    margin-left: 0; /* if sidebar collapses on small screens */
+  }
+
+  .tips-page.compact {
+    padding: 1rem;
+    width: 100%; /* ✅ prevent forced scroll */
+  }
+
+  .tips-list {
+    grid-template-columns: 1fr;
+  }
+}

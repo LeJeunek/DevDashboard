@@ -5,6 +5,7 @@ import "react-resizable/css/styles.css";
 import "./DashboardGrid.css";
 import Tips from "../pages/Tips.jsx";
 import SnippetManager from "./widgets/SnippetManager.jsx";
+import TipsWidget from "./widgets/TipsWidget.jsx";
 
 export default function DashboardGrid() {
   const [gridWidth, setGridWidth] = useState(window.innerWidth - 250); // minus sidebar
@@ -109,7 +110,7 @@ export default function DashboardGrid() {
           </div>
 
           <div className="widget-body">
-            <Tips compact />
+            <TipsWidget />
           </div>
         </div>
         <div key="d" className="widget">
@@ -143,7 +144,7 @@ export default function DashboardGrid() {
           >
             {expandedWidget === "a" && <SnippetManager />}
             {expandedWidget === "b" && <div>Color Palette Full View</div>}
-            {expandedWidget === "c" && <div>Cheat Sheet Full View</div>}
+            {expandedWidget === "c" && <TipsWidget />}
             {expandedWidget === "d" && <div>Radio Full View</div>}
           </div>
         </div>
