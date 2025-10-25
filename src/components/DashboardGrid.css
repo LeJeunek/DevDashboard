@@ -12,6 +12,8 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 300px;
 }
 
@@ -51,6 +53,9 @@
   font-weight: bold;
   user-select: none;
   border-bottom: 1px solid #333;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 /* Left section: drag handle + title grouped */
@@ -75,6 +80,7 @@
   cursor: default;
   color: #fff;
   transition: color 0.2s;
+  width: 100%;
   font-weight: 600;
 }
 
@@ -89,7 +95,6 @@
   padding: 1rem;
   min-height: 150px; /* ensures content shows */
 }
-
 
 .layout.blurred {
   filter: blur(3px);
@@ -121,11 +126,26 @@
   .dashboard-grid {
     flex-direction: column;
     margin-left: 0; /* remove sidebar offset on small screens */
-    height: auto;
+    height: 100vh;
+    width: 100%;
   }
   .widget {
-    width: 300px;/* full width on small screens */
     margin-bottom: 1rem;
+    margin-left: 250px; /* offset for sidebar */
+    height: auto;
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .widget-header {
+    width: auto;
+    font-size: 0.9rem;
+  }
+  .widget-title {
+    font-size: 1rem;
+    align-self: center;
   }
   .expanded-overlay {
     left: 0;

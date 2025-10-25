@@ -6,6 +6,7 @@ import "./DashboardGrid.css";
 import Tips from "../pages/Tips.jsx";
 import SnippetManager from "./widgets/SnippetManager.jsx";
 import TipsWidget from "./widgets/TipsWidget.jsx";
+import RadioWidget from "./widgets/RadioWidget.jsx";
 
 export default function DashboardGrid() {
   const [gridWidth, setGridWidth] = useState(window.innerWidth - 250); // minus sidebar
@@ -49,8 +50,8 @@ export default function DashboardGrid() {
               <div className="drag-handle" title="Drag to move">
                 ⋮⋮
               </div>
-              <span className="widget-title">Snippet Manager</span>
             </div>
+            <span className="widget-title">Snippet Manager</span>
             <button
               className="expand-btn"
               onClick={(e) => {
@@ -62,7 +63,7 @@ export default function DashboardGrid() {
             </button>
           </div>
 
-          <div className="widget-body">
+          <div className="widget-body  d-none d-md-block">
             <SnippetManager />
           </div>
         </div>
@@ -73,8 +74,8 @@ export default function DashboardGrid() {
               <div className="drag-handle" title="Drag to move">
                 ⋮⋮
               </div>
-              <span className="widget-title">Color Palette</span>
             </div>
+            <span className="widget-title">Color Palette</span>
             <button
               className="expand-btn"
               onClick={(e) => {
@@ -86,7 +87,7 @@ export default function DashboardGrid() {
             </button>
           </div>
 
-          <div className="widget-body">
+          <div className="widget-body  d-none d-md-block">
             <div>Color Palette Content</div>
           </div>
         </div>
@@ -96,8 +97,8 @@ export default function DashboardGrid() {
               <div className="drag-handle" title="Drag to move">
                 ⋮⋮
               </div>
-              <span className="widget-title">Cheat sheet</span>
             </div>
+            <span className="widget-title">Cheat sheet</span>
             <button
               className="expand-btn"
               onClick={(e) => {
@@ -109,7 +110,7 @@ export default function DashboardGrid() {
             </button>
           </div>
 
-          <div className="widget-body">
+          <div className="widget-body  d-none d-md-block">
             <TipsWidget />
           </div>
         </div>
@@ -119,8 +120,8 @@ export default function DashboardGrid() {
               <div className="drag-handle" title="Drag to move">
                 ⋮⋮
               </div>
-              <span className="widget-title">Radio</span>
-            </div>
+            </div>{" "}
+            <span className="widget-title">Radio</span>
             <button
               className="expand-btn"
               onClick={(e) => {
@@ -132,7 +133,9 @@ export default function DashboardGrid() {
             </button>
           </div>
 
-          <div className="widget-body"></div>
+          <div className="widget-body d-none d-md-block">
+            <RadioWidget />
+          </div>
         </div>
       </GridLayout>
 
@@ -145,7 +148,7 @@ export default function DashboardGrid() {
             {expandedWidget === "a" && <SnippetManager />}
             {expandedWidget === "b" && <div>Color Palette Full View</div>}
             {expandedWidget === "c" && <TipsWidget />}
-            {expandedWidget === "d" && <div>Radio Full View</div>}
+            {expandedWidget === "d" && <RadioWidget />}
           </div>
         </div>
       )}
