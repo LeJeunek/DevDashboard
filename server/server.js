@@ -57,16 +57,51 @@ app.delete("/api/snippets/:id", (req, res) => {
 app.get("/api/radio/:tag", async (req, res) => {
   try {
     const { tag } = req.params;
-    const response = await fetch(
-      `https://de1.api.radio-browser.info/json/stations/bytag/${tag}`
-    );
-    const data = await response.json();
-    res.json(data.slice(0, 12));
-  } catch (error) {
-    console.error(error);
+    const { country } = req.query;
+
+    const countryMap = {
+      US: "United States",
+      CA: "Canada",
+      GB: "United Kingdom",
+      FR: "France",
+    };
+
+    let stations = [];
+
+    if (country && countryMap[country]) {
+      // Fetch stations by country first
+      const fullCountry = encodeURIComponent(countryMap[country]);
+      const countryResponse = await fetch(
+        `https://de1.api.radio-browser.info/json/stations/bycountry/${fullCountry}`
+      );
+      stations = await countryResponse.json();
+    } else {
+      // No country filter, fetch all stations
+      const response = await fetch(
+        `https://de1.api.radio-browser.info/json/stations`
+      );
+      stations = await response.json();
+    }
+
+    // Filter by genre/tag
+    if (tag) {
+      const tagLower = tag.toLowerCase();
+      stations = stations.filter(
+        station => station.tags && station.tags.toLowerCase().includes(tagLower)
+      );
+    }
+
+    // Limit to 12 stations for layout
+    stations = stations.slice(0, 12);
+
+    res.json(stations);
+  } catch (err) {
+    console.error(err);
     res.status(500).json({ error: "Failed to fetch radio stations" });
   }
 });
+
+
 
 
 
