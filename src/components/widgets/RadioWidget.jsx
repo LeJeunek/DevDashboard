@@ -12,9 +12,7 @@ const RadioWidget = () => {
   useEffect(() => {
     const fetchStations = async () => {
       try {
-        const response = await fetch(
-          "https://de1.api.radio-browser.info/json/stations/bytag/jazz"
-        );
+       const response = await fetch(`/api/radio/jazz`);
         if (!response.ok) throw new Error("Failed to fetch stations");
         const data = await response.json();
         setStations(data.slice(0, 12)); // limit to 12 for layout

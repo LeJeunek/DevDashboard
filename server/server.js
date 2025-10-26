@@ -54,5 +54,21 @@ app.delete("/api/snippets/:id", (req, res) => {
   res.json({ success: true });
 });
 
+app.get("/api/radio/:tag", async (req, res) => {
+  try {
+    const { tag } = req.params;
+    const response = await fetch(
+      `https://de1.api.radio-browser.info/json/stations/bytag/${tag}`
+    );
+    const data = await response.json();
+    res.json(data.slice(0, 12));
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Failed to fetch radio stations" });
+  }
+});
+
+
+
 const PORT = 8080;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
