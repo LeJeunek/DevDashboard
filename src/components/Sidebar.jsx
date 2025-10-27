@@ -2,6 +2,7 @@ import { Nav } from "react-bootstrap";
 import { FaHome, FaCode, FaPalette, FaLightbulb } from "react-icons/fa";
 import { NavLink } from "react-router-dom"; // <-- use NavLink for active styling
 import "./Sidebar.css";
+import { FaRadio } from "react-icons/fa6";
 
 export default function Sidebar() {
   return (
@@ -30,6 +31,13 @@ export default function Sidebar() {
           className="d-flex align-items-center mb-3 text-white"
         >
           <FaPalette className="me-2" /> Palette
+        </Nav.Link>
+        <Nav.Link
+          as={NavLink}
+          to="/radio"
+          className="d-flex align-items-center mb-3 text-white"
+        >
+          <FaRadio className="me-2" /> Radio
         </Nav.Link>
 
         <Nav.Link

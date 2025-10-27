@@ -1,7 +1,8 @@
 .dashboard-grid {
   margin-left: 250px; /* offset for sidebar */
-  height: calc(100vh - 2rem);
+  height: 100vh;
   display: flex;
+  background-color: #1307005d;
 }
 
 .widget {
@@ -85,7 +86,7 @@
 }
 
 .widget-title:hover {
-  color: #0dcaf0; /* subtle hover accent */
+  color: #e64717; /* subtle hover accent */
 }
 
 .widget-body {

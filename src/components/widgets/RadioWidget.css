@@ -1,0 +1,92 @@
+.btn-control-group {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 8px;
+}
+
+.btn-control-group button {
+  background-color: #222;
+  color: #e64717;
+  border: 1px solid #444;
+  box-shadow: 0 0 8px hsla(14, 80%, 50%, 0.7);
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+}
+
+.btn-control-group button:hover {
+  background-color: #111111bd;
+  color: #ff5722;
+  transform: scale(0.95);
+  transition: all 0.1s ease-in-out;
+}
+
+.btn-control-group button:active {
+  transform: scaleY(0.95);
+}
+.volume-control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ff5722;
+}
+
+/*Volume slide option */
+input[type="range"] {
+  -webkit-appearance: none; /* Remove default styles in Chrome/Safari */
+  width: 100%;
+  max-width: 125px;
+  height: 6px;
+  background: #555; /* track color */
+  border-radius: 3px;
+  outline: none;
+}
+
+/* Chrome, Safari, Edge */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  background: #ff5722; /* thumb color */
+  border-radius: 50%;
+  cursor: pointer;
+  border: 1px solid #444;
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ff5722;
+  border-radius: 50%;
+  border: 1px solid #444;
+  cursor: pointer;
+}
+
+/* Firefox track color */
+input[type="range"]::-moz-range-track {
+  background: #555;
+  height: 6px;
+  border-radius: 3px;
+}
+
+/* IE */
+input[type="range"]::-ms-thumb {
+  width: 16px;
+  height: 16px;
+  background: #ff5722;
+  border-radius: 50%;
+  border: 1px solid #444;
+  cursor: pointer;
+}
+
+input[type="range"]::-ms-track {
+  background: #555;
+  height: 6px;
+  border-radius: 3px;
+  border-color: transparent;
+  color: transparent;
+}

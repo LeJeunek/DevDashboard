@@ -5,6 +5,8 @@ import Code from "./pages/Code.jsx";
 import Tips from "./pages/Tips.jsx";
 import RadioWidget from "./components/widgets/RadioWidget.jsx";
 import "./index.css";
+import ReactHooksExplorer from "./components/widgets/ReactHooksExplorer.jsx";
+import DependencyHealthChecker from "./components/widgets/DependencyHealthChecker.jsx";
 
 function App() {
   return (
@@ -16,6 +18,11 @@ function App() {
           <Route path="/code" element={<Code />} />
           <Route path="/tips" element={<Tips />} />
           <Route path="/radio" element={<RadioWidget />} />
+          <Route path="/react-hook-explorer" element={<ReactHooksExplorer />} />
+          <Route
+            path="/dependency-checker"
+            element={<DependencyHealthChecker />}
+          />
         </Routes>
       </div>
     </Router>

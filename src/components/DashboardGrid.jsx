@@ -7,6 +7,8 @@ import Tips from "../pages/Tips.jsx";
 import SnippetManager from "./widgets/SnippetManager.jsx";
 import TipsWidget from "./widgets/TipsWidget.jsx";
 import RadioWidget from "./widgets/RadioWidget.jsx";
+import DependencyHealthChecker from "./widgets/DependencyHealthChecker.jsx";
+import ReactHooksExplorer from "./widgets/ReactHooksExplorer.jsx";
 
 export default function DashboardGrid() {
   const [gridWidth, setGridWidth] = useState(window.innerWidth - 250); // minus sidebar
@@ -22,9 +24,10 @@ export default function DashboardGrid() {
     { i: "a", x: 0, y: 0, w: 3, h: 2 },
     { i: "b", x: 3, y: 0, w: 3, h: 2 },
     { i: "c", x: 6, y: 0, w: 3, h: 2 },
-    { i: "d", x: 0, y: 2, w: 3, h: 2 }, // stacked under A
+    { i: "d", x: 0, y: 2, w: 3, h: 2 },
+    { i: "e", x: 3, y: 2, w: 3, h: 2 }, // Dependency Checker
+    { i: "f", x: 6, y: 2, w: 3, h: 2 }, // Hooks Explorer
   ];
-
   const handleExpand = (id) => {
     setExpandedWidget(id);
   };
@@ -137,6 +140,35 @@ export default function DashboardGrid() {
             <RadioWidget />
           </div>
         </div>
+        <div key="e" className="widget">
+          <div className="widget-header">
+            <div className="widget-left">
+              <div className="drag-handle">⋮⋮</div>
+            </div>
+            <span className="widget-title">Dependency Health</span>
+            <button className="expand-btn" onClick={() => handleExpand("e")}>
+              ⛶
+            </button>
+          </div>
+          <div className="widget-body d-none d-md-block">
+            <DependencyHealthChecker />
+          </div>
+        </div>
+
+        <div key="f" className="widget">
+          <div className="widget-header">
+            <div className="widget-left">
+              <div className="drag-handle">⋮⋮</div>
+            </div>
+            <span className="widget-title">React Hooks Explorer</span>
+            <button className="expand-btn" onClick={() => handleExpand("f")}>
+              ⛶
+            </button>
+          </div>
+          <div className="widget-body d-none d-md-block">
+            <ReactHooksExplorer />
+          </div>
+        </div>
       </GridLayout>
 
       {expandedWidget && (
@@ -149,6 +181,8 @@ export default function DashboardGrid() {
             {expandedWidget === "b" && <div>Color Palette Full View</div>}
             {expandedWidget === "c" && <TipsWidget />}
             {expandedWidget === "d" && <RadioWidget />}
+            {expandedWidget === "e" && <DependencyHealthChecker />}
+            {expandedWidget === "f" && <ReactHooksExplorer />}
           </div>
         </div>
       )}
