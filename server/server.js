@@ -2,12 +2,16 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import cors from "cors";
+import tasksRouter from "./routes/tasks.js";
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 const __dirname = path.resolve();
+
+app.use("/api/tasks", tasksRouter);
+
 const snippetsFile = path.join(__dirname, "data", "snippets.json");
 
 // Helper: read file
@@ -40,7 +44,9 @@ app.post("/api/snippets", (req, res) => {
 app.put("/api/snippets/:id", (req, res) => {
   const snippets = readSnippets();
   const id = Number(req.params.id);
-  const updated = snippets.map(s => s.id === id ? { ...s, ...req.body } : s);
+  const updated = snippets.map((s) =>
+    s.id === id ? { ...s, ...req.body } : s
+  );
   writeSnippets(updated);
   res.json({ success: true });
 });
@@ -49,7 +55,7 @@ app.put("/api/snippets/:id", (req, res) => {
 app.delete("/api/snippets/:id", (req, res) => {
   const snippets = readSnippets();
   const id = Number(req.params.id);
-  const filtered = snippets.filter(s => s.id !== id);
+  const filtered = snippets.filter((s) => s.id !== id);
   writeSnippets(filtered);
   res.json({ success: true });
 });
@@ -87,7 +93,8 @@ app.get("/api/radio/:tag", async (req, res) => {
     if (tag) {
       const tagLower = tag.toLowerCase();
       stations = stations.filter(
-        station => station.tags && station.tags.toLowerCase().includes(tagLower)
+        (station) =>
+          station.tags && station.tags.toLowerCase().includes(tagLower)
       );
     }
 
@@ -100,10 +107,6 @@ app.get("/api/radio/:tag", async (req, res) => {
     res.status(500).json({ error: "Failed to fetch radio stations" });
   }
 });
-
-
-
-
 
 const PORT = 8080;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

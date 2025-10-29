@@ -7,6 +7,7 @@ import RadioWidget from "./components/widgets/RadioWidget.jsx";
 import "./index.css";
 import ReactHooksExplorer from "./components/widgets/ReactHooksExplorer.jsx";
 import DependencyHealthChecker from "./components/widgets/DependencyHealthChecker.jsx";
+import CollapsibleTasks from "./components/CollapsibleTasks.jsx";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/code" element={<Code />} />
           <Route path="/tips" element={<Tips />} />
           <Route path="/radio" element={<RadioWidget />} />
+          <Route path="/tasks" element={<CollapsibleTasks />} />
           <Route path="/react-hook-explorer" element={<ReactHooksExplorer />} />
           <Route
             path="/dependency-checker"

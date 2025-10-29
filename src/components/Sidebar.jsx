@@ -1,5 +1,11 @@
 import { Nav } from "react-bootstrap";
-import { FaHome, FaCode, FaPalette, FaLightbulb } from "react-icons/fa";
+import {
+  FaHome,
+  FaCode,
+  FaPalette,
+  FaLightbulb,
+  FaJournalWhills,
+} from "react-icons/fa";
 import { NavLink } from "react-router-dom"; // <-- use NavLink for active styling
 import "./Sidebar.css";
 import { FaRadio } from "react-icons/fa6";
@@ -46,6 +52,13 @@ export default function Sidebar() {
           className="d-flex align-items-center mb-3 text-white"
         >
           <FaLightbulb className="me-2" /> Tips
+        </Nav.Link>
+        <Nav.Link
+          as={NavLink}
+          to="/tasks"
+          className="d-flex align-items-center mb-3 text-white"
+        >
+          <FaJournalWhills className="me-2" /> Tasks
         </Nav.Link>
       </Nav>
     </div>
