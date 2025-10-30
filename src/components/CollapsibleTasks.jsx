@@ -41,18 +41,19 @@ const CollapsibleTasks = () => {
     await fetch(`http://localhost:8080/api/tasks/${id}`, { method: "DELETE" });
     setTasks(tasks.filter((t) => t.id !== id));
   };
+
   return (
-    <Container className="bg-light">
+    <Container className="bg-dark rounded-2">
       <Card className="my-3 shadow-sm">
         <Card.Header
           onClick={() => setOpen(!open)}
           style={{ cursor: "pointer" }}
-          className="d-flex justify-content-between align-items-center"
+          className="bg-dark  text-white d-flex justify-content-between align-items-center"
         >
           <strong>My Tasks</strong>
           <span>{open ? "▾" : "▸"}</span>
         </Card.Header>
-        <Collapse in={open}>
+        <Collapse in={!open}>
           <div>
             <Card.Body>
               <Form

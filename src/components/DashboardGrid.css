@@ -1,8 +1,7 @@
 .dashboard-grid {
-  margin-left: 250px; /* offset for sidebar */
   height: 100vh;
   display: flex;
-  background-color: #1307005d;
+  background-color: #1307005d; /* remove sidebar offset on small screens */
 }
 
 .widget {
@@ -104,7 +103,6 @@
 .expanded-overlay {
   position: fixed;
   top: 0;
-  left: 250px; /* width of sidebar */
   width: calc(100% - 250px);
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
@@ -126,7 +124,7 @@
 @media (max-width: 800px) {
   .dashboard-grid {
     flex-direction: column;
-    margin-left: 0; /* remove sidebar offset on small screens */
+
     height: 100vh;
     width: 100%;
   }

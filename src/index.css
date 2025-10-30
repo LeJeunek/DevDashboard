@@ -1,5 +1,5 @@
 body {
-  background-color: #1307005d;
+  background-color: #181818;
   color: #e0e0e0;
   min-height: 100vh;
   width: 100%;
@@ -22,6 +22,11 @@ body {
   border-radius: 12px;
   overflow: hidden;
   font-family: "Fira Code", monospace !important;
+  margin-left: 250px;
+  transition: margin-left 0.3s ease;
+}
+.main-content.collapsed {
+  margin-left: 80px;
 }
 
 .page-header {
@@ -37,13 +42,12 @@ body {
   overflow: hidden; /* prevent body scroll */
   padding: 2rem;
   display: flex;
-  width: calc(100% - 250px); /* offset for sidebar */
+  width: 100%;
   flex-direction: column;
   position: absolute;
   top: 0;
-  left: 250px; /* offset for sidebar */
   height: 100vh;
-  background-color: #121212;
+  background-color: #181818;
 }
 .tips-page-content {
   flex: 1;
@@ -51,7 +55,6 @@ body {
   padding: 1rem;
   max-width: 80%;
   width: 100%;
-  margin-left: 250px; /* remove sidebar offset inside widget */
   display: flex;
   justify-content: center;
   align-items: center;

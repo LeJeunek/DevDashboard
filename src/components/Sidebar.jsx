@@ -5,62 +5,77 @@ import {
   FaPalette,
   FaLightbulb,
   FaJournalWhills,
+  FaBars,
 } from "react-icons/fa";
-import { NavLink } from "react-router-dom"; // <-- use NavLink for active styling
-import "./Sidebar.css";
 import { FaRadio } from "react-icons/fa6";
+import { NavLink } from "react-router-dom";
+import { useState } from "react";
+import "./Sidebar.css";
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed, setCollapsed }) {
   return (
-    <div className="sidebar d-flex flex-column align-items-start p-3">
-      <h4 className="mb-4 text-white">Dev Dashboard</h4>
-      <Nav className="flex-column w-100">
-        <Nav.Link
-          as={NavLink}
-          to="/"
-          className="d-flex align-items-center mb-3 text-white"
+    <Nav
+      className={`sidebar d-flex flex-column p-5 align-items-center text-center ${
+        collapsed ? "collapsed" : ""
+      }`}
+    >
+      {/* Header with Hamburger */}
+      <div className="sidebar-header d-flex align-items-center justify-content-between">
+        <button
+          className="btn btn-sm btn-outline-light toggle-btn"
+          onClick={() => setCollapsed(!collapsed)}
+          style={{ marginRight: "2rem" }}
         >
-          <FaHome className="me-2" /> Home
+          <FaBars />
+        </button>
+        <h4 className={`text-white ${collapsed ? "d-none" : ""}`}>
+          Dev Dashboard
+        </h4>
+      </div>
+
+      <div className="sidebar-links d-flex flex-column w-100">
+        <Nav.Link as={NavLink} to="/" className="nav-item">
+          <span className="icon">
+            <FaHome />
+          </span>
+          <span className="text">Home</span>
         </Nav.Link>
 
-        <Nav.Link
-          as={NavLink}
-          to="/code"
-          className="d-flex align-items-center mb-3 text-white"
-        >
-          <FaCode className="me-2" /> Code
+        <Nav.Link as={NavLink} to="/code" className="nav-item">
+          <span className="icon">
+            <FaCode />
+          </span>
+          <span className="text">Code</span>
         </Nav.Link>
 
-        <Nav.Link
-          as={NavLink}
-          to="/palette"
-          className="d-flex align-items-center mb-3 text-white"
-        >
-          <FaPalette className="me-2" /> Palette
-        </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/radio"
-          className="d-flex align-items-center mb-3 text-white"
-        >
-          <FaRadio className="me-2" /> Radio
+        <Nav.Link as={NavLink} to="/palette" className="nav-item">
+          <span className="icon">
+            <FaPalette />
+          </span>
+          <span className="text">Palette</span>
         </Nav.Link>
 
-        <Nav.Link
-          as={NavLink}
-          to="/tips"
-          className="d-flex align-items-center mb-3 text-white"
-        >
-          <FaLightbulb className="me-2" /> Tips
+        <Nav.Link as={NavLink} to="/radio" className="nav-item">
+          <span className="icon">
+            <FaRadio />
+          </span>
+          <span className="text">Radio</span>
         </Nav.Link>
-        <Nav.Link
-          as={NavLink}
-          to="/tasks"
-          className="d-flex align-items-center mb-3 text-white"
-        >
-          <FaJournalWhills className="me-2" /> Tasks
+
+        <Nav.Link as={NavLink} to="/tips" className="nav-item">
+          <span className="icon">
+            <FaLightbulb />
+          </span>
+          <span className="text">Tips</span>
         </Nav.Link>
-      </Nav>
-    </div>
+
+        <Nav.Link as={NavLink} to="/tasks" className="nav-item">
+          <span className="icon">
+            <FaJournalWhills />
+          </span>
+          <span className="text">Tasks</span>
+        </Nav.Link>
+      </div>
+    </Nav>
   );
 }
