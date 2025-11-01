@@ -3,7 +3,7 @@ import GridLayout from "react-grid-layout";
 import "react-grid-layout/css/styles.css";
 import "react-resizable/css/styles.css";
 import "./DashboardGrid.css";
-import Tips from "../pages/Tips.jsx";
+
 import SnippetManager from "./widgets/SnippetManager.jsx";
 import TipsWidget from "./widgets/TipsWidget.jsx";
 import RadioWidget from "./widgets/RadioWidget.jsx";
@@ -13,171 +13,165 @@ import CollapsibleTasks from "./CollapsibleTasks.jsx";
 
 export default function DashboardGrid({ collapsed }) {
   const sidebarWidth = collapsed ? 80 : 250;
-  const [gridWidth, setGridWidth] = useState(window.innerWidth - 250); // minus sidebar
+  const [gridWidth, setGridWidth] = useState(window.innerWidth - sidebarWidth);
   const [expandedWidget, setExpandedWidget] = useState(null);
 
   useEffect(() => {
-    const handleResize = () => setGridWidth(window.innerWidth - sidebarWidth);
+    const handleResize = () => {
+      setGridWidth(window.innerWidth - sidebarWidth);
+    };
     window.addEventListener("resize", handleResize);
+    handleResize();
     return () => window.removeEventListener("resize", handleResize);
-  }, [collapsed]);
+  }, [sidebarWidth]);
 
-  // Fixed layout — each widget spaced evenly
   const layout = [
-    { i: "a", x: 0, y: 0, w: 3, h: 2 },
-    { i: "b", x: 3, y: 0, w: 3, h: 2 },
-    { i: "c", x: 6, y: 0, w: 3, h: 2 },
-    { i: "d", x: 0, y: 2, w: 3, h: 2 },
-    { i: "e", x: 3, y: 2, w: 3, h: 2 }, // Dependency Checker
-    { i: "f", x: 6, y: 2, w: 3, h: 2 }, // Hooks Explorer
+    { i: "a", x: 0.5, y: 3, w: 3, h: 3 },
+    { i: "b", x: 0.5, y: 3, w: 3, h: 3 },
+    { i: "c", x: 3.5, y: 3, w: 3, h: 3 },
+    { i: "d", x: 3.5, y: 6, w: 3, h: 3 },
+    { i: "e", x: 6.5, y: 6, w: 3, h: 3 },
+    { i: "f", x: 6.5, y: 6, w: 3, h: 3 },
   ];
-  const handleExpand = (id) => {
-    setExpandedWidget(id);
-  };
-  const handleClose = () => {
-    setExpandedWidget(null);
-  };
 
   return (
     <>
       <CollapsibleTasks />
-      <div className="dashboard-grid">
+
+      <div
+        className={`dashboard-grid ${collapsed ? "collapsed" : "with-sidebar"}`}
+      >
         <GridLayout
           className={`layout ${expandedWidget ? "blurred" : ""}`}
           layout={layout}
           cols={12}
           rowHeight={100}
-          isDraggable={!expandedWidget} // disable drag when expanded
+          width={gridWidth}
+          isDraggable={!expandedWidget}
           isResizable={!expandedWidget}
           draggableHandle=".drag-handle"
-          width={gridWidth}
+          margin={[20, 20]}
+          containerPadding={[20, 20]}
         >
+          {/* === WIDGET A: Snippet Manager === */}
           <div key="a" className="widget">
             <div className="widget-header">
               <div className="widget-left">
-                <div className="drag-handle" title="Drag to move">
-                  ⋮⋮
-                </div>
+                <span className="drag-handle">☰</span>
+                <span className="widget-title">Snippet Manager</span>
               </div>
-              <span className="widget-title">Snippet Manager</span>
               <button
                 className="expand-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleExpand("a");
-                }}
+                onClick={() => setExpandedWidget("a")}
               >
-                ⛶
+                ⤢
               </button>
             </div>
-
-            <div className="widget-body  d-none d-md-block">
+            <div className="widget-body">
               <SnippetManager />
             </div>
           </div>
 
+          {/* === WIDGET B: Color Palette Placeholder === */}
           <div key="b" className="widget">
             <div className="widget-header">
               <div className="widget-left">
-                <div className="drag-handle" title="Drag to move">
-                  ⋮⋮
-                </div>
+                <span className="drag-handle">☰</span>
+                <span className="widget-title">Color Palette</span>
               </div>
-              <span className="widget-title">Color Palette</span>
               <button
                 className="expand-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleExpand("b");
-                }}
+                onClick={() => setExpandedWidget("b")}
               >
-                ⛶
+                ⤢
               </button>
             </div>
-
-            <div className="widget-body  d-none d-md-block">
-              <div>Color Palette Content</div>
-            </div>
+            <div className="widget-body">Color Palette Widget</div>
           </div>
+
+          {/* === WIDGET C: Tips === */}
           <div key="c" className="widget">
             <div className="widget-header">
               <div className="widget-left">
-                <div className="drag-handle" title="Drag to move">
-                  ⋮⋮
-                </div>
+                <span className="drag-handle">☰</span>
+                <span className="widget-title">Tips</span>
               </div>
-              <span className="widget-title">Cheat sheet</span>
               <button
                 className="expand-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleExpand("c");
-                }}
+                onClick={() => setExpandedWidget("c")}
               >
-                ⛶
+                ⤢
               </button>
             </div>
-
-            <div className="widget-body  d-none d-md-block">
+            <div className="widget-body">
               <TipsWidget />
             </div>
           </div>
+
+          {/* === WIDGET D: Radio === */}
           <div key="d" className="widget">
             <div className="widget-header">
               <div className="widget-left">
-                <div className="drag-handle" title="Drag to move">
-                  ⋮⋮
-                </div>
-              </div>{" "}
-              <span className="widget-title">Radio</span>
+                <span className="drag-handle">☰</span>
+                <span className="widget-title">Radio</span>
+              </div>
               <button
                 className="expand-btn"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleExpand("d");
-                }}
+                onClick={() => setExpandedWidget("d")}
               >
-                ⛶
+                ⤢
               </button>
             </div>
-
-            <div className="widget-body d-none d-md-block">
+            <div className="widget-body">
               <RadioWidget />
             </div>
           </div>
+
+          {/* === WIDGET E: Dependency Checker === */}
           <div key="e" className="widget">
             <div className="widget-header">
               <div className="widget-left">
-                <div className="drag-handle">⋮⋮</div>
+                <span className="drag-handle">☰</span>
+                <span className="widget-title">Dependency Health</span>
               </div>
-              <span className="widget-title">Dependency Health</span>
-              <button className="expand-btn" onClick={() => handleExpand("e")}>
-                ⛶
+              <button
+                className="expand-btn"
+                onClick={() => setExpandedWidget("e")}
+              >
+                ⤢
               </button>
             </div>
-            <div className="widget-body d-none d-md-block">
+            <div className="widget-body">
               <DependencyHealthChecker />
             </div>
           </div>
 
+          {/* === WIDGET F: React Hooks Explorer === */}
           <div key="f" className="widget">
             <div className="widget-header">
               <div className="widget-left">
-                <div className="drag-handle">⋮⋮</div>
+                <span className="drag-handle">☰</span>
+                <span className="widget-title">React Hooks Explorer</span>
               </div>
-              <span className="widget-title">React Hooks Explorer</span>
-              <button className="expand-btn" onClick={() => handleExpand("f")}>
-                ⛶
+              <button
+                className="expand-btn"
+                onClick={() => setExpandedWidget("f")}
+              >
+                ⤢
               </button>
             </div>
-            <div className="widget-body d-none d-md-block">
+            <div className="widget-body">
               <ReactHooksExplorer />
             </div>
           </div>
         </GridLayout>
 
+        {/* === EXPANDED OVERLAY === */}
         {expandedWidget && (
-          <div className="expanded-overlay" onClick={handleClose}>
+          <div
+            className="expanded-overlay"
+            onClick={() => setExpandedWidget(null)}
+          >
             <div
               className="expanded-content"
               onClick={(e) => e.stopPropagation()}

@@ -22,9 +22,10 @@ export default function Sidebar({ collapsed, setCollapsed }) {
       {/* Header with Hamburger */}
       <div className="sidebar-header d-flex align-items-center justify-content-between">
         <button
-          className="btn btn-sm btn-outline-light toggle-btn"
+          id="toggle-button"
+          className="btn btn-sm"
           onClick={() => setCollapsed(!collapsed)}
-          style={{ marginRight: "2rem" }}
+          style={{ marginRight: "1.62rem" }}
         >
           <FaBars />
         </button>

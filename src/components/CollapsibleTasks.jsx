@@ -43,7 +43,7 @@ const CollapsibleTasks = () => {
   };
 
   return (
-    <Container className="bg-dark rounded-2">
+    <Container className="bg-dark rounded-2 w-50 d-flex justify-content-center">
       <Card className="my-3 shadow-sm">
         <Card.Header
           onClick={() => setOpen(!open)}

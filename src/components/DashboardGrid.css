@@ -1,49 +1,41 @@
+/* === DASHBOARD GRID CONTAINER === */
 .dashboard-grid {
+  background-color: #1307005d;
+  width: 100%;
   height: 100vh;
+  overflow: hidden;
   display: flex;
-  background-color: #1307005d; /* remove sidebar offset on small screens */
+  flex-wrap: wrap;
 }
 
+/* Sidebar offsets */
+
+/* === WIDGETS === */
 .widget {
   background-color: #1e1e1e;
   color: #fff;
   border-radius: 8px;
-  height: auto;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 300px;
+  overflow: hidden;
+  min-height: 250px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  transition: all 0.25s ease;
+  margin-left: 200px;
+  margin-right: 200px;
 }
 
-/* Prevent red highlight on click */
+/* Prevent highlight */
 .widget,
 .widget * {
   user-select: none;
 }
 
-.expand-btn {
-  background: transparent;
-  border: none;
-  color: #ccc;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: color 0.2s ease;
-}
-
-.expand-btn:hover {
-  color: #0dcaf0;
-}
-
-.widget:active,
-.widget button:active {
-  outline: none;
-  background: inherit !important;
-  color: inherit !important;
-}
-
-/* === Improved header layout === */
+/* === HEADER === */
 .widget-header {
   display: flex;
   justify-content: space-between;
@@ -51,14 +43,11 @@
   background-color: #2b2b2b;
   padding: 0.6rem 1rem;
   font-weight: bold;
-  user-select: none;
   border-bottom: 1px solid #333;
   width: 100%;
   box-sizing: border-box;
-  text-align: center;
 }
 
-/* Left section: drag handle + title grouped */
 .widget-left {
   display: flex;
   align-items: center;
@@ -77,32 +66,48 @@
 }
 
 .widget-title {
-  cursor: default;
   color: #fff;
-  transition: color 0.2s;
-  width: 100%;
   font-weight: 600;
+  transition: color 0.2s;
 }
 
 .widget-title:hover {
-  color: #e64717; /* subtle hover accent */
+  color: #e64717;
 }
 
+/* === BUTTON === */
+.expand-btn {
+  background: transparent;
+  border: none;
+  color: #ccc;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.expand-btn:hover {
+  color: #0dcaf0;
+}
+
+/* === BODY === */
 .widget-body {
   flex: 1;
   overflow-y: auto;
   width: 100%;
   padding: 1rem;
-  min-height: 150px; /* ensures content shows */
+  min-height: 150px;
 }
 
+/* === EXPANSION === */
 .layout.blurred {
   filter: blur(3px);
   pointer-events: none;
 }
+
 .expanded-overlay {
   position: fixed;
   top: 0;
+  left: 250px;
   width: calc(100% - 250px);
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
@@ -111,6 +116,11 @@
   justify-content: center;
   align-items: center;
   z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.dashboard-grid.collapsed + .expanded-overlay {
+  width: calc(100% - 80px);
 }
 
 .expanded-content {
@@ -121,35 +131,5 @@
   overflow-y: auto;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
 }
-@media (max-width: 800px) {
-  .dashboard-grid {
-    flex-direction: column;
 
-    height: 100vh;
-    width: 100%;
-  }
-  .widget {
-    margin-bottom: 1rem;
-    margin-left: 250px; /* offset for sidebar */
-    height: auto;
-    width: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  .widget-header {
-    width: auto;
-    font-size: 0.9rem;
-  }
-  .widget-title {
-    font-size: 1rem;
-    align-self: center;
-  }
-  .expanded-overlay {
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    padding: 1rem;
-  }
-}
+/* === RESPONSIVE === */
