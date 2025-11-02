@@ -6,6 +6,8 @@
   overflow: hidden;
   display: flex;
   flex-wrap: wrap;
+  padding: 80px;
+  padding-left: 180px;
 }
 
 /* === WIDGETS === */

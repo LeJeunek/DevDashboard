@@ -94,8 +94,8 @@ export default function DashboardGrid({ collapsed }) {
           isDraggable={!expandedWidget}
           isResizable={resizable}
           draggableHandle=".drag-handle"
-          margin={[60, 20]}
-          containerPadding={[40, 40]}
+          margin={[20, 60]}
+          containerPadding={[100, 20]}
         >
           {widgets.map(({ key, title, img }) => (
             <div
