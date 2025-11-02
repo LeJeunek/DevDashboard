@@ -1,13 +1,12 @@
 /* === DASHBOARD GRID CONTAINER === */
 .dashboard-grid {
-  background-color: rgba(61, 60, 56, 0.651);
+  background-color: rgba(61, 60, 56, 0.65);
   width: 100%;
   height: 100vh;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 80px;
-  padding-left: 180px;
+  overflow: auto;
+  display: block; /* Let React Grid Layout handle grid positioning */
+  padding: 60px 40px 40px 140px; /* Adjust side spacing */
+  box-sizing: border-box;
 }
 
 /* === WIDGETS === */
@@ -125,11 +124,11 @@
 .expanded-overlay {
   position: fixed;
   top: 0;
-
+  left: 0;
   width: 100%;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.9);
-  padding: 2rem;
+  background-color: rgba(0, 0, 0, 1);
+  padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -212,38 +211,38 @@
 /* margin-right: 200px; */
 
 /* Add responsive layout rules */
-@media (max-width: 1200px) {
+@media (min-width: 1201px) {
+  .dashboard-grid {
+    padding: 100px;
+  }
+}
+@media (max-width: 1200px) and (min-width: 601px) {
   .dashboard-grid {
     flex-direction: column;
     height: 100vh;
     overflow: visible;
-  }
-
-  .layout {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    margin-left: 200px;
+    padding: 200px;
+    margin-left: 80px;
   }
 
   .widget {
-    width: 90%;
-    max-width: 600px;
-    margin: 20px auto;
-    min-height: 220px;
+    width: 100%;
+    max-width: 150px;
+    margin: 80px auto;
+    min-height: 150px;
   }
 
   .widget-thumbnail {
-    padding: 1rem;
+    padding: 0.5rem;
   }
 
   .thumbnail {
-    font-size: 1.5rem;
+    font-size: 0.75rem;
   }
 
   .thumbnail-img {
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     margin-top: 15px;
   }
 
@@ -256,11 +255,17 @@
 /* Small phones */
 @media (max-width: 600px) {
   .dashboard-grid {
-    margin-right: 40px;
+    height: 100vh;
+    overflow: visible;
+    padding: 150px;
+    margin-left: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
+
   .widget {
     width: 95%;
-    margin: 15px auto;
   }
 
   .widget-header {

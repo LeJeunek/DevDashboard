@@ -11,7 +11,7 @@ import "./index.css";
 import { useState } from "react"; // 👈 import useState
 
 function App() {
-  const [collapsed, setCollapsed] = useState(false); // 👈 add this
+  const [collapsed, setCollapsed] = useState(true); // 👈 add this
 
   return (
     <Router>
