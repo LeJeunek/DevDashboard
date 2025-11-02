@@ -11,14 +11,29 @@ import DependencyHealthChecker from "./widgets/DependencyHealthChecker.jsx";
 import ReactHooksExplorer from "./widgets/ReactHooksExplorer.jsx";
 import CollapsibleTasks from "./CollapsibleTasks.jsx";
 
+import boombox from "../assets/boombox-primary.png";
+import tip from "../assets/lightbulb.png";
+import health from "../assets/health.png";
+import palette from "../assets/palette.png";
+import code from "../assets/code.png";
+
 export default function DashboardGrid({ collapsed }) {
-  const sidebarWidth = collapsed ? 80 : 250;
+  const sidebarWidth = collapsed ? 100 : 250;
   const [gridWidth, setGridWidth] = useState(window.innerWidth - sidebarWidth);
   const [expandedWidget, setExpandedWidget] = useState(null);
+  const [cols, setCols] = useState(window.innerWidth < 768 ? 1 : 12);
+  const [rowHeight, setRowHeight] = useState(
+    window.innerWidth < 768 ? 120 : 80
+  );
+  const [resizable, setResizable] = useState(window.innerWidth >= 768);
 
   useEffect(() => {
     const handleResize = () => {
-      setGridWidth(window.innerWidth - sidebarWidth);
+      const w = window.innerWidth - sidebarWidth;
+      setGridWidth(w);
+      setCols(window.innerWidth < 768 ? 1 : 12);
+      setRowHeight(window.innerWidth < 768 ? 120 : 80);
+      setResizable(window.innerWidth >= 768);
     };
     window.addEventListener("resize", handleResize);
     handleResize();
@@ -26,12 +41,41 @@ export default function DashboardGrid({ collapsed }) {
   }, [sidebarWidth]);
 
   const layout = [
-    { i: "a", x: 0.5, y: 3, w: 3, h: 3 },
-    { i: "b", x: 0.5, y: 3, w: 3, h: 3 },
-    { i: "c", x: 3.5, y: 3, w: 3, h: 3 },
-    { i: "d", x: 3.5, y: 6, w: 3, h: 3 },
-    { i: "e", x: 6.5, y: 6, w: 3, h: 3 },
-    { i: "f", x: 6.5, y: 6, w: 3, h: 3 },
+    { i: "a", x: 0, y: 0, w: 3, h: 3 },
+    { i: "b", x: 3, y: 0, w: 3, h: 3 },
+    { i: "c", x: 6, y: 0, w: 3, h: 3 },
+    { i: "d", x: 9, y: 0, w: 3, h: 3 },
+    { i: "e", x: 0, y: 3, w: 3, h: 3 },
+    { i: "f", x: 3, y: 3, w: 3, h: 3 },
+  ];
+
+  const widgets = [
+    {
+      key: "a",
+      title: "Snippet Manager",
+      img: code,
+      content: <SnippetManager />,
+    },
+    {
+      key: "b",
+      title: "Color Palette",
+      img: palette,
+      content: <div>Color Palette Full View</div>,
+    },
+    { key: "c", title: "Tips & Tricks", img: tip, content: <TipsWidget /> },
+    { key: "d", title: "Radio Player", img: boombox, content: <RadioWidget /> },
+    {
+      key: "e",
+      title: "Dependency Checker",
+      img: health,
+      content: <DependencyHealthChecker />,
+    },
+    {
+      key: "f",
+      title: "Hooks Explorer",
+      img: palette,
+      content: <ReactHooksExplorer />,
+    },
   ];
 
   return (
@@ -44,129 +88,39 @@ export default function DashboardGrid({ collapsed }) {
         <GridLayout
           className={`layout ${expandedWidget ? "blurred" : ""}`}
           layout={layout}
-          cols={12}
-          rowHeight={100}
+          cols={cols}
+          rowHeight={rowHeight}
           width={gridWidth}
           isDraggable={!expandedWidget}
-          isResizable={!expandedWidget}
+          isResizable={resizable}
           draggableHandle=".drag-handle"
-          margin={[20, 20]}
-          containerPadding={[20, 20]}
+          margin={[60, 20]}
+          containerPadding={[40, 40]}
         >
-          {/* === WIDGET A: Snippet Manager === */}
-          <div key="a" className="widget">
-            <div className="widget-header">
-              <div className="widget-left">
-                <span className="drag-handle">☰</span>
-                <span className="widget-title">Snippet Manager</span>
+          {widgets.map(({ key, title, img }) => (
+            <div
+              key={key}
+              className="widget mx-4 "
+              onClick={() => setExpandedWidget(key)}
+            >
+              <div className="widget-header">
+                <div className="widget-left">
+                  <span className="drag-handle">☰</span>
+                </div>
               </div>
-              <button
-                className="expand-btn"
-                onClick={() => setExpandedWidget("a")}
-              >
-                ⤢
-              </button>
-            </div>
-            <div className="widget-body">
-              <SnippetManager />
-            </div>
-          </div>
-
-          {/* === WIDGET B: Color Palette Placeholder === */}
-          <div key="b" className="widget">
-            <div className="widget-header">
-              <div className="widget-left">
-                <span className="drag-handle">☰</span>
-                <span className="widget-title">Color Palette</span>
+              <div className="widget-thumbnail">
+                <div className="thumbnail">
+                  {title}
+                  <div className="thumbnail-img">
+                    <img src={img} alt={title} />
+                  </div>
+                </div>
               </div>
-              <button
-                className="expand-btn"
-                onClick={() => setExpandedWidget("b")}
-              >
-                ⤢
-              </button>
             </div>
-            <div className="widget-body">Color Palette Widget</div>
-          </div>
-
-          {/* === WIDGET C: Tips === */}
-          <div key="c" className="widget">
-            <div className="widget-header">
-              <div className="widget-left">
-                <span className="drag-handle">☰</span>
-                <span className="widget-title">Tips</span>
-              </div>
-              <button
-                className="expand-btn"
-                onClick={() => setExpandedWidget("c")}
-              >
-                ⤢
-              </button>
-            </div>
-            <div className="widget-body">
-              <TipsWidget />
-            </div>
-          </div>
-
-          {/* === WIDGET D: Radio === */}
-          <div key="d" className="widget">
-            <div className="widget-header">
-              <div className="widget-left">
-                <span className="drag-handle">☰</span>
-                <span className="widget-title">Radio</span>
-              </div>
-              <button
-                className="expand-btn"
-                onClick={() => setExpandedWidget("d")}
-              >
-                ⤢
-              </button>
-            </div>
-            <div className="widget-body">
-              <RadioWidget />
-            </div>
-          </div>
-
-          {/* === WIDGET E: Dependency Checker === */}
-          <div key="e" className="widget">
-            <div className="widget-header">
-              <div className="widget-left">
-                <span className="drag-handle">☰</span>
-                <span className="widget-title">Dependency Health</span>
-              </div>
-              <button
-                className="expand-btn"
-                onClick={() => setExpandedWidget("e")}
-              >
-                ⤢
-              </button>
-            </div>
-            <div className="widget-body">
-              <DependencyHealthChecker />
-            </div>
-          </div>
-
-          {/* === WIDGET F: React Hooks Explorer === */}
-          <div key="f" className="widget">
-            <div className="widget-header">
-              <div className="widget-left">
-                <span className="drag-handle">☰</span>
-                <span className="widget-title">React Hooks Explorer</span>
-              </div>
-              <button
-                className="expand-btn"
-                onClick={() => setExpandedWidget("f")}
-              >
-                ⤢
-              </button>
-            </div>
-            <div className="widget-body">
-              <ReactHooksExplorer />
-            </div>
-          </div>
+          ))}
         </GridLayout>
 
-        {/* === EXPANDED OVERLAY === */}
+        {/* Expanded overlay */}
         {expandedWidget && (
           <div
             className="expanded-overlay"
@@ -176,12 +130,7 @@ export default function DashboardGrid({ collapsed }) {
               className="expanded-content"
               onClick={(e) => e.stopPropagation()}
             >
-              {expandedWidget === "a" && <SnippetManager />}
-              {expandedWidget === "b" && <div>Color Palette Full View</div>}
-              {expandedWidget === "c" && <TipsWidget />}
-              {expandedWidget === "d" && <RadioWidget />}
-              {expandedWidget === "e" && <DependencyHealthChecker />}
-              {expandedWidget === "f" && <ReactHooksExplorer />}
+              {widgets.find((w) => w.key === expandedWidget)?.content}
             </div>
           </div>
         )}

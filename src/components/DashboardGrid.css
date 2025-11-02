@@ -1,6 +1,6 @@
 /* === DASHBOARD GRID CONTAINER === */
 .dashboard-grid {
-  background-color: #1307005d;
+  background-color: rgba(61, 60, 56, 0.651);
   width: 100%;
   height: 100vh;
   overflow: hidden;
@@ -8,25 +8,35 @@
   flex-wrap: wrap;
 }
 
-/* Sidebar offsets */
-
 /* === WIDGETS === */
 .widget {
-  background-color: #1e1e1e;
+  position: relative;
+  background: rgba(30, 30, 30, 0.4); /* glassy transparent black */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
   color: #fff;
-  border-radius: 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  cursor: pointer;
   align-items: center;
   overflow: hidden;
   min-height: 250px;
   width: 100%;
+  min-width: 250px;
   height: 100%;
   box-sizing: border-box;
-  transition: all 0.25s ease;
-  margin-left: 200px;
-  margin-right: 200px;
+
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.05);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.widget:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.7);
 }
 
 /* Prevent highlight */
@@ -40,12 +50,17 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #2b2b2b;
-  padding: 0.6rem 1rem;
+
+  padding: 0.5rem;
   font-weight: bold;
-  border-bottom: 1px solid #333;
+  background: rgba(30, 30, 30, 0.4); /* glassy transparent black */
   width: 100%;
   box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .widget-left {
@@ -57,8 +72,9 @@
 .drag-handle {
   cursor: grab;
   color: #888;
-  font-size: 1.2rem;
+  font-size: 2rem;
   padding-right: 0.5rem;
+  padding-left: 0.5rem;
 }
 
 .drag-handle:active {
@@ -86,7 +102,7 @@
 }
 
 .expand-btn:hover {
-  color: #0dcaf0;
+  color: #e64717;
 }
 
 /* === BODY === */
@@ -107,8 +123,8 @@
 .expanded-overlay {
   position: fixed;
   top: 0;
-  left: 250px;
-  width: calc(100% - 250px);
+
+  width: 100%;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.9);
   padding: 2rem;
@@ -132,4 +148,137 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.9);
 }
 
-/* === RESPONSIVE === */
+/* === GLASS THUMBNAIL === */
+.widget-thumbnail {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: rgba(20, 20, 20, 0.3);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.widget-thumbnail:hover {
+  background: rgba(25, 25, 25, 0.5);
+
+  transform: scale(1.02);
+}
+
+/* === THUMBNAIL TEXT === */
+.thumbnail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  color: rgba(255, 255, 255, 0.9);
+  font-family: "Khula", sans-serif;
+  font-weight: 800;
+  font-size: 1.75rem;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.3;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 20px;
+}
+.thumbnail-img {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.thumbnail-img img {
+  max-height: 120px;
+  max-width: 120px;
+}
+/* Remove this from .widget */
+/* margin-left: 200px; */
+/* margin-right: 200px; */
+
+/* Add responsive layout rules */
+@media (max-width: 1200px) {
+  .dashboard-grid {
+    flex-direction: column;
+    height: 100vh;
+    overflow: visible;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 200px;
+  }
+
+  .widget {
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    min-height: 220px;
+  }
+
+  .widget-thumbnail {
+    padding: 1rem;
+  }
+
+  .thumbnail {
+    font-size: 1.5rem;
+  }
+
+  .thumbnail-img {
+    width: 80px;
+    height: 80px;
+    margin-top: 15px;
+  }
+
+  .thumbnail-img img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+
+/* Small phones */
+@media (max-width: 600px) {
+  .dashboard-grid {
+    margin-right: 40px;
+  }
+  .widget {
+    width: 95%;
+    margin: 15px auto;
+  }
+
+  .widget-header {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.75rem;
+  }
+
+  .expand-btn {
+    font-size: 1rem;
+  }
+
+  .thumbnail {
+    font-size: 1.2rem;
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .thumbnail-img {
+    width: 70px;
+    height: 70px;
+    margin-top: 10px;
+  }
+}
