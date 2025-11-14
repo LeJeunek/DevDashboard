@@ -119,9 +119,15 @@ export default function SnippetManager() {
         ></textarea>
 
         {selectedSnippet ? (
-          <button onClick={handleUpdate}>Update Snippet</button>
+          <div className="update-btn">
+            <button onClick={handleUpdate}>Update Snippet</button>
+          </div>
         ) : (
-          <button onClick={handleAdd}>Add Snippet</button>
+          <div className="add-btn ms-auto me-5">
+            <button onClick={handleAdd} className="">
+              Add Snippet
+            </button>
+          </div>
         )}
       </div>
 
@@ -146,17 +152,18 @@ export default function SnippetManager() {
             const isExpanded = expandedIds.includes(s.id);
             return (
               <li key={s.id} className="snippet-item">
-                <div className="snippet-header">
+                <div className="snippet-header d-flex justify-content-between align-items-center flex-column">
                   <strong>{s.title}</strong>
                   <div className="actions">
-                    <div className="snippet-buttons">   <button onClick={() => toggleExpand(s.id)}>
-                      {isExpanded ? "Collapse" : "Expand"}
-                    </button>
-                    <button onClick={() => copyCode(s.code)}>Copy</button>
-
-                    <button onClick={() => handleEdit(s)}>Edit</button>
-                    <button onClick={() => handleDelete(s.id)}>Delete</button></div>
-                 
+                    <div className="snippet-buttons">
+                      {" "}
+                      <button onClick={() => toggleExpand(s.id)}>
+                        {isExpanded ? "Collapse" : "Expand"}
+                      </button>
+                      <button onClick={() => copyCode(s.code)}>Copy</button>
+                      <button onClick={() => handleEdit(s)}>Edit</button>
+                      <button onClick={() => handleDelete(s.id)}>Delete</button>
+                    </div>
                   </div>
                 </div>
 

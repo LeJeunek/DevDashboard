@@ -2,7 +2,7 @@
   {
     "id": 1760902803008,
     "title": "General Test",
-    "code": "<button class=\"btn btn-success\">I am in general</button>",
+    "code": "<button class=\"btn btn-success\">I am in general</button>\n\n",
     "category": "general"
   },
   {
