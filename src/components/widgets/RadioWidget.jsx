@@ -67,6 +67,7 @@ const RadioWidget = () => {
     <Container
       fluid
       className="p-3 text-white bg-dark rounded"
+      id="radio-widget-container"
       style={{ height: "100vh" }}
     >
       <h3>Radio Widget</h3>
@@ -82,7 +83,7 @@ const RadioWidget = () => {
           </div>
         </Col>
       </Row>
-      <Row className="mt-3 g-2 justify-content-center">
+      <Row className="mt-3 g-2 justify-content-center align-items-center flex-1 mx-auto">
         <Col xs={6} sm={4} md={3}>
           <Form.Select value={genre} onChange={(e) => setGenre(e.target.value)}>
             <option value="jazz">Jazz</option>
@@ -150,7 +151,8 @@ const RadioWidget = () => {
         value={volume}
         onChange={(e) => setVolume(parseFloat(e.target.value))}
       />
-      <Row className="mt-4 g-3 justify-content-center align-items-center ms-5">
+
+      <Row className="mt-4 g-2 mb-3 justify-content-center align-items-center flex-1 mx-auto">
         {stations.map((station) => (
           <Col
             key={station.stationuuid}
@@ -163,7 +165,7 @@ const RadioWidget = () => {
             <Card
               bg="secondary"
               text="white"
-              className="h-100 cursor-pointer"
+              className="h-100 cursor-pointer mt-2"
               onClick={() => setCurrentStation(station)}
               style={{ cursor: "pointer" }}
             >

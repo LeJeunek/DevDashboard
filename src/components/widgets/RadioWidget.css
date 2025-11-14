@@ -1,3 +1,8 @@
+#radio-widget-container {
+  height: 100vh;
+  overflow-y: auto;
+}
+
 .btn-control-group {
   display: flex;
   justify-content: center;
