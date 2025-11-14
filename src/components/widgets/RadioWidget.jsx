@@ -18,7 +18,6 @@ const RadioWidget = () => {
   useEffect(() => {
     if (audioRef.current) audioRef.current.volume = volume;
   }, [volume, currentStation]);
-
   useEffect(() => {
     const fetchStations = async () => {
       setLoading(true);
@@ -28,7 +27,32 @@ const RadioWidget = () => {
         const response = await fetch(`/api/radio/${genre}?country=${country}`);
         if (!response.ok) throw new Error("Failed to fetch stations");
         const data = await response.json();
-        setStations(data.slice(0, 12)); // limit to 12 for layout
+
+        // Shuffle helper
+        const shuffle = (array) => {
+          const arr = [...array];
+          for (let i = arr.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+          }
+          return arr;
+        };
+
+        let shuffled = shuffle(data);
+
+        // If there's a current station, make sure it's visible in the new 12
+        if (currentStation) {
+          const exists = shuffled.find(
+            (s) => s.stationuuid === currentStation.stationuuid
+          );
+          if (!exists) {
+            shuffled = [currentStation, ...shuffled];
+          }
+        }
+
+        // Limit to 12 for layout
+        const limited = shuffled.slice(0, 12);
+        setStations(limited);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -94,6 +118,28 @@ const RadioWidget = () => {
       <div className="btn-control-group mt-3 text-center">
         <button onClick={() => audioRef.current.play()}>▶</button>
         <button onClick={() => audioRef.current.pause()}>⏸</button>
+        <button
+          onClick={() => {
+            setStations((prev) => {
+              const arr = [...prev];
+              for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+              }
+
+              // Keep the current station visible
+              if (
+                currentStation &&
+                !arr.find((s) => s.stationuuid === currentStation.stationuuid)
+              ) {
+                arr[0] = currentStation;
+              }
+              return arr;
+            });
+          }}
+        >
+          ↻
+        </button>
       </div>
       <input
         type="range"
